@@ -28,6 +28,16 @@ const items = [
     icon: AccountBalanceWalletIcon,
     title: 'Wallets'
   },
+  {
+    href: '/transactions',
+    icon: AccountBalanceWalletIcon,
+    title: 'Transactions'
+  },
+  {
+    href: '/blocks',
+    icon: AccountBalanceWalletIcon,
+    title: 'Blocks'
+  },
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {

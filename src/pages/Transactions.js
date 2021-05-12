@@ -5,24 +5,15 @@ import {
   Container,
   Grid
 } from '@material-ui/core';
-import TotalBlock from '../components/dashboard/TotalBlock';
+import LatestTransactions from '../components/transaction/LatestTransactions';
 import TotalTransaction from '../components/dashboard/TotalTransaction';
 import { LINK } from '../constant/constant'
 import axios from 'axios';
 
-const Dashboard = () => {
-  const [blocks, setBlocks] = useState([]);
+const Transactions = () => {
   const [txs, setTxs] = useState([]);
 
   useEffect(async () => {
-    await axios.get(`${LINK.API}/blocks`)
-      .then(function (res) {
-        setBlocks(res.data)
-      })
-      .catch(function (err) {
-        console.log(err);
-      })
-
     await axios.get(`${LINK.API}/finishPool`)
       .then(function (res) {
         setTxs(res.data)
@@ -51,23 +42,11 @@ const Dashboard = () => {
             container
             spacing={3}
           >
-            <Grid
+           <Grid
               item
-              lg={6}
-              sm={6}
-              xl={6}
               xs={12}
             >
-              <TotalBlock sx={{ height: '100%' }} amount={blocks?.length || 0} />
-            </Grid>
-            <Grid
-              item
-              lg={6}
-              sm={6}
-              xl={6}
-              xs={12}
-            >
-              <TotalTransaction sx={{ height: '100%' }} amount={txs?.length || 0} />
+              <LatestTransactions data={txs} />
             </Grid>
           </Grid>
         </Container>
@@ -76,4 +55,4 @@ const Dashboard = () => {
   )
 };
 
-export default Dashboard;
+export default Transactions;
