@@ -106,7 +106,6 @@ const WalletsView = () => {
           <Box sx={{ pt: 3 }}>
             <WalletsMiner encryphted={values.encryphted} password={values.password} handleOpen={handleOpen} />
           </Box>
-
         </Container>
       </Box>
     </>

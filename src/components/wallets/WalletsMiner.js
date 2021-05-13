@@ -16,12 +16,34 @@ import axios from 'axios';
 
 const WalletsMiner = (props) => {
   const { encryphted, password, handleOpen } = props
+  const [values, setValues] = useState({
+    public: '',
+    amount: ''
+  });
+  const [errors, setErrors] = useState({
+    public: '',
+    amount: ''
+  })
+
+  const handleChange = (event) => {
+    if (event.target.value.trim() !== '') {
+      setErrors({
+        ...errors,
+        [event.target.name]: ''
+      });
+    }
+
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value.trim()
+    });
+  };
 
   const handleMine = () => {
     try {
       const privateKey = decryptPrivateKey(encryphted, password);
       const publicKey = getPublicKey(privateKey)
-      axios.post(`${LINK.API}/mineBlockGuess`, { address: publicKey })
+      axios.post(`${LINK.API}/mineBlockAnonymous`, { address: publicKey })
         .then(function (res) {
           handleOpen("Start mining", "success");
         })
@@ -49,6 +71,19 @@ const WalletsMiner = (props) => {
             subheader="Start mining at our server. NEED TO LOGIN TO USE"
           />
           <Divider />
+          <CardContent>
+            <TextField
+              fullWidth
+              label="Public Key"
+              margin="normal"
+              name="public"
+              onChange={handleChange}
+              value={values.public}
+              variant="outlined"
+              error={errors.public !== ''}
+              helperText={errors.public}
+            />
+          </CardContent>        
           <Box
             sx={{
               display: 'flex',

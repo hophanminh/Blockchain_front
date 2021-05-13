@@ -11,7 +11,6 @@ import {
 } from '@material-ui/core';
 import Logo from './Logo';
 
-
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
   const [notifications] = useState([]);
 

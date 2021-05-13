@@ -156,7 +156,6 @@ const LatestBlocks = (props) => {
                 </TableRow>
               )}
             </TableBody>
-
           </Table>
         </Box>
       </PerfectScrollbar>
