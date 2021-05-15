@@ -15,34 +15,37 @@ import { LINK } from '../../constant/constant'
 import axios from 'axios';
 
 const WalletsMiner = (props) => {
-  const { encryphted, password, handleOpen } = props
-  const [values, setValues] = useState({
-    public: '',
-    amount: ''
-  });
+  const { publicKey, setValues, handleOpen } = props
+  // const [values, setValues] = useState({
+  //   publicKey: ''
+  // });
   const [errors, setErrors] = useState({
-    public: '',
-    amount: ''
+    publicKey: ''
   })
 
   const handleChange = (event) => {
     if (event.target.value.trim() !== '') {
       setErrors({
         ...errors,
-        [event.target.name]: ''
+        publicKey: ''
       });
     }
 
     setValues({
-      ...values,
-      [event.target.name]: event.target.value.trim()
+      encryphted: event.target.value.trim()
     });
   };
 
   const handleMine = () => {
+    if (publicKey === '') {
+      setErrors({
+        ...errors,
+        publicKey: "This field can't be blank."
+      })
+      return
+    }
+    console.log(publicKey);
     try {
-      const privateKey = decryptPrivateKey(encryphted, password);
-      const publicKey = getPublicKey(privateKey)
       axios.post(`${LINK.API}/mineBlockAnonymous`, { address: publicKey })
         .then(function (res) {
           handleOpen("Start mining", "success");
@@ -78,7 +81,7 @@ const WalletsMiner = (props) => {
               margin="normal"
               name="public"
               onChange={handleChange}
-              value={values.public}
+              value={publicKey}
               variant="outlined"
               error={errors.public !== ''}
               helperText={errors.public}

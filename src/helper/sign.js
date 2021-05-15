@@ -177,5 +177,5 @@ const decryptPrivateKey = (encrypted, passphase) => {
 }
 
 export {
-    createTransaction, encryptPrivateKey, decryptPrivateKey, getPublicKey
+    generatePrivateKey, createTransaction, encryptPrivateKey, decryptPrivateKey, getPublicKey
 };

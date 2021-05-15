@@ -15,84 +15,37 @@ import { LINK } from '../../constant/constant'
 import axios from 'axios';
 
 const WalletsLogin = (props) => {
-  const { encryphted, password, setValues, handleGetTransaction, handleOpen } = props
+  const { publicKey, setValues, handleGetTransaction, handleOpen } = props
   const [errors, setErrors] = useState({
-    encryphted: '',
-    password: ''
+    publicKey: '',
   })
 
-  const handleChangeEncryphted = (event) => {
+  const handleChangePublicKey = (event) => {
     if (event.target.value.trim() !== '') {
       setErrors({
         ...errors,
-        encryphted: ''
+        publicKey: ''
       });
     }
 
     setValues({
       encryphted: event.target.value.trim(),
-      password: password
     });
   };
-
-  const handleChangePassword = (event) => {
-    if (event.target.value.trim() !== '') {
-      setErrors({
-        ...errors,
-        password: ''
-      });
-    }
-
-    setValues({
-      encryphted: encryphted,
-      password: event.target.value.trim()
-    });
-  };
-
-  const handleGetPublicKey = () => {
-    if (encryphted === '') {
-      setErrors({
-        ...errors,
-        encryphted: "This field can't be blank."
-      })
-      return
-    }
-    if (password === '') {
-      setErrors({
-        ...errors,
-        password: "This field can't be blank."
-      })
-      return
-    }
-    try {
-      const privateKey = decryptPrivateKey(encryphted, password)
-      const publicKey = getPublicKey(privateKey)
-      handleOpen("Your public key: " + publicKey, 'success')
-    }
-    catch (error) {
-      handleOpen(error.message, 'error')
-    }
-  }
 
   const handleGetBalance = async () => {
-    if (encryphted === '') {
+    if (publicKey === '') {
       setErrors({
         ...errors,
-        encryphted: "This field can't be blank."
+        publicKey: "This field can't be blank."
       })
       return
     }
-    if (password === '') {
-      setErrors({
-        ...errors,
-        password: "This field can't be blank."
-      })
-      return
-    }
+    console.log(publicKey);
+
     try {
-      const privateKey = decryptPrivateKey(encryphted, password);
-      const publicKey = getPublicKey(privateKey)
-      axios.post(`${LINK.API}/balanceGuess`, { address: publicKey })
+      console.log("Get blance: "+publicKey)
+      axios.post(`${LINK.API}/balanceAnonymous`, { address: publicKey })
         .then(function (res) {
           handleOpen("Your balance: " + res?.data?.balance, "success");
         })
@@ -112,21 +65,14 @@ const WalletsLogin = (props) => {
   }
 
   const handleTransaction = () => {
-    if (encryphted === '') {
+    console.log(publicKey);
+    if (publicKey === '') {
       setErrors({
         ...errors,
-        encryphted: "This field can't be blank."
+        publicKey: "This field can't be blank."
       })
       return
     }
-    if (password === '') {
-      setErrors({
-        ...errors,
-        password: "This field can't be blank."
-      })
-      return
-    }
-
     handleGetTransaction();
   }
 
@@ -142,26 +88,14 @@ const WalletsLogin = (props) => {
           <CardContent>
             <TextField
               fullWidth
-              label="Encrypted Key"
+              label="Public Key"
               margin="normal"
-              name="encryphted"
-              onChange={handleChangeEncryphted}
-              value={encryphted}
+              name="publicKey"
+              onChange={handleChangePublicKey}
+              value={publicKey}
               variant="outlined"
-              error={errors.encryphted !== ''}
-              helperText={errors.encryphted}
-            />
-            <TextField
-              fullWidth
-              label="Password"
-              type="password"
-              margin="normal"
-              name="password"
-              onChange={handleChangePassword}
-              value={password}
-              variant="outlined"
-              error={errors.password !== ''}
-              helperText={errors.password}
+              error={errors.publicKey !== ''}
+              helperText={errors.publicKey}
             />
           </CardContent>
           <Divider />

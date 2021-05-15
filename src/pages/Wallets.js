@@ -40,15 +40,12 @@ const WalletsView = () => {
           }
           else {
             handleOpen(err.message, "error");
-
           }
         })
     }
     catch (error) {
       handleOpen(error.message, 'error')
     }
-
-
   }
 
   // snack bar
@@ -94,17 +91,17 @@ const WalletsView = () => {
           </Box>
           <h3 style={{ marginTop: 20, marginLeft: 15 }}>Using your wallet</h3>
           <Box sx={{ pt: 3 }}>
-            <WalletsLogin encryphted={values.encryphted} password={values.password}
+            <WalletsLogin publicKey={values.encryphted}
               setValues={setValues} handleGetTransaction={handleGetTransaction} handleOpen={handleOpen} />
           </Box>
           <Box sx={{ pt: 3 }}>
             <WalletsTransactions data={walletTx} handleOpen={handleOpen} />
           </Box>
           <Box sx={{ pt: 3 }}>
-            <WalletsTransfer encryphted={values.encryphted} password={values.password} handleOpen={handleOpen} />
+            <WalletsTransfer publicKey={values.encryphted} handleOpen={handleOpen} />
           </Box>
           <Box sx={{ pt: 3 }}>
-            <WalletsMiner encryphted={values.encryphted} password={values.password} handleOpen={handleOpen} />
+            <WalletsMiner publicKey={values.encryphted} setValues={setValues} handleOpen={handleOpen} />
           </Box>
         </Container>
       </Box>

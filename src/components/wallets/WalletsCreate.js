@@ -10,42 +10,25 @@ import {
   Snackbar,
   Alert
 } from '@material-ui/core';
-import { encryptPrivateKey } from '../../helper/sign';
+import { getPublicKey, generatePrivateKey } from '../../helper/sign';
 
 const WalletsCreate = (props) => {
   const { handleOpen } = props
   const [values, setValues] = useState({
-    password: '',
+    publicKey: '',
+    privateKey: ''
   });
-  const [errors, setErrors] = useState({
-    password: '',
-  })
 
-  const handleChange = (event) => {
-    if (event.target.value.trim() !== '') {
-      setErrors({
-        ...errors,
-        [event.target.name]: ''
-      });
-    }
-
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value.trim()
-    });
-  };
 
   const handleCreate = () => {
-    if (values.password === '') {
-      setErrors({
-        ...errors,
-        password: "This field can't be blank."
-      })
-      return
-    }
+    const privateKey = generatePrivateKey();
+    const publicKey = getPublicKey(privateKey);
+    setValues({publicKey: publicKey, privateKey: privateKey});
+    // handleOpen("Your encrypted privateKey: " + publicKey, "success")
+  }
 
-    const encrypted = encryptPrivateKey(values?.password);
-    handleOpen("Your encrypted privateKey: " + encrypted, "success")
+  const handleGetPrivateKey = () => {
+    handleOpen("Your privateKey: " + values.privateKey, "success")
   }
 
   return (
@@ -60,15 +43,12 @@ const WalletsCreate = (props) => {
           <CardContent>
             <TextField
               fullWidth
-              label="Password"
-              type="password"
+              label="Public Key"
               margin="normal"
               name="password"
-              onChange={handleChange}
-              value={values.password}
+              value={values.publicKey}
               variant="outlined"
-              error={errors.password !== ''}
-              helperText={errors.password}
+              disabled
             />
           </CardContent>
           <Divider />
@@ -84,7 +64,14 @@ const WalletsCreate = (props) => {
               variant="contained"
               onClick={() => handleCreate()}
             >
-              Create
+              Generate Key
+          </Button>
+          <Button
+              color="primary"
+              variant="contained"
+              onClick={() => handleGetPrivateKey()}
+            >
+              Get private Key
           </Button>
           </Box>
         </Card>

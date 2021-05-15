@@ -17,11 +17,13 @@ import axios from 'axios';
 const WalletsTransfer = (props) => {
   const { encryphted, password, handleOpen } = props
   const [values, setValues] = useState({
-    public: '',
+    publicKey: '',
+    privateKey: '',
     amount: ''
   });
   const [errors, setErrors] = useState({
-    public: '',
+    publicKey: '',
+    privateKey: '',
     amount: ''
   })
 
@@ -41,10 +43,17 @@ const WalletsTransfer = (props) => {
 
 
   const sendTransaction = () => {
-    if (values.public === '') {
+    if (values.publicKey === '') {
       setErrors({
         ...errors,
-        public: "This field can't be blank."
+        publicKey: "This field can't be blank."
+      })
+      return
+    }
+    if (values.privateKey === '') {
+      setErrors({
+        ...errors,
+        privateKey: "This field can't be blank."
       })
       return
     }
@@ -63,8 +72,10 @@ const WalletsTransfer = (props) => {
       })
       return
     }
+    console.log("Publickey: " + values.publicKey);
+    console.log("PrivateKey: " + values.privateKey);
+    console.log("Amount: " + values.amount);
 
-    const privateKey = decryptPrivateKey(encryphted, password);
     // get unSpent
     axios.get(`${LINK.API}/unSpent`)
       .then(function (res) {
@@ -75,10 +86,10 @@ const WalletsTransfer = (props) => {
             const pool = res.data
             try {
               // create and sign transaction locally
-              const tx = createTransaction(values.public, Number(values.amount), privateKey, unSpent, pool)
+              const tx = createTransaction(values.publicKey, Number(values.amount), values.privateKey, unSpent, pool)
               console.log(tx)
               // send transaction to server
-              axios.post(`${LINK.API}/sendTransactionGuess`, { transaction: tx })
+              axios.post(`${LINK.API}/sendTransactionAnonymous`, { transaction: tx })
                 .then(function (res) {
                   handleOpen("Created transaction successfully. Now wait for someone to mine it", "success");
                 })
@@ -117,12 +128,23 @@ const WalletsTransfer = (props) => {
               fullWidth
               label="Public Key"
               margin="normal"
-              name="public"
+              name="publicKey"
               onChange={handleChange}
-              value={values.public}
+              value={values.publicKey}
               variant="outlined"
-              error={errors.public !== ''}
-              helperText={errors.public}
+              error={errors.publicKey !== ''}
+              helperText={errors.publicKey}
+            />
+            <TextField
+              fullWidth
+              label="Private key"
+              margin="normal"
+              name="privateKey"
+              onChange={handleChange}
+              value={values.privateKey}
+              variant="outlined"
+              error={errors.privateKey !== ''}
+              helperText={errors.privateKey}
             />
             <TextField
               fullWidth
@@ -135,6 +157,7 @@ const WalletsTransfer = (props) => {
               error={errors.amount !== ''}
               helperText={errors.amount}
             />
+            
           </CardContent>
           <Divider />
           <Box
