@@ -62,6 +62,7 @@ const createTransaction = (receiverAddress, amount, privateKey, unspentTxOuts, t
         return txIn;
     });
 
+    console.log("Hereeeeeee: " + tx);
     return tx;
 };
 

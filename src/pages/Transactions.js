@@ -14,7 +14,7 @@ const Transactions = () => {
   const [txs, setTxs] = useState([]);
 
   useEffect(async () => {
-    await axios.get(`${LINK.API}/finishPool`)
+    await axios.get(`${LINK.API}/finishTransaction`)
       .then(function (res) {
         setTxs(res.data)
       })

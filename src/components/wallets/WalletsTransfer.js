@@ -89,7 +89,7 @@ const WalletsTransfer = (props) => {
               const tx = createTransaction(values.publicKey, Number(values.amount), values.privateKey, unSpent, pool)
               console.log(tx)
               // send transaction to server
-              axios.post(`${LINK.API}/sendTransactionAnonymous`, { transaction: tx })
+              axios.post(`${LINK.API}/sendTransactionAnonymous`, { transaction: tx, sender : tx.sender, reeceiver: tx.receiver, amount: tx.txOuts[0].amount, privateKey: values.privateKey})
                 .then(function (res) {
                   handleOpen("Created transaction successfully. Now wait for someone to mine it", "success");
                 })

@@ -44,7 +44,7 @@ const WalletsLogin = (props) => {
     console.log(publicKey);
 
     try {
-      console.log("Get blance: "+publicKey)
+      console.log("Get blance: " + publicKey)
       axios.post(`${LINK.API}/balanceAnonymous`, { address: publicKey })
         .then(function (res) {
           handleOpen("Your balance: " + res?.data?.balance, "success");
@@ -64,7 +64,9 @@ const WalletsLogin = (props) => {
     }
   }
 
-  const handleTransaction = () => {
+  const [walletTx, setWalletTx] = useState();
+
+  const handleTransaction = async () => {
     console.log(publicKey);
     if (publicKey === '') {
       setErrors({
@@ -73,7 +75,25 @@ const WalletsLogin = (props) => {
       })
       return
     }
-    handleGetTransaction();
+    try {
+      await axios.post(`${LINK.API}/finishTransactionAnonymous`, { address: publicKey })
+        .then(function (res) {
+          setWalletTx(res.data)
+          console.log(walletTx);
+        })
+        .catch(function (err) {
+          if (err?.response) {
+            handleOpen(err?.response?.data, "error");
+
+          }
+          else {
+            handleOpen(err.message, "error");
+          }
+        })
+    }
+    catch (error) {
+      handleOpen(error.message, 'error')
+    }
   }
 
   return (
