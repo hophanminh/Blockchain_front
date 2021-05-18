@@ -60,7 +60,7 @@ const Dashboard = () => {
             >
               <TotalBlock sx={{ height: '100%' }} amount={blocks?.length || 0} />
             </Grid>
-            <Grid
+            {/* <Grid
               item
               lg={6}
               sm={6}
@@ -68,7 +68,7 @@ const Dashboard = () => {
               xs={12}
             >
               <TotalTransaction sx={{ height: '100%' }} amount={txs?.length || 0} />
-            </Grid>
+            </Grid> */}
           </Grid>
         </Container>
       </Box>

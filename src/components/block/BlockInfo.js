@@ -71,20 +71,6 @@ const BlockInfo = (props) => {
                     <TableCell style={{ width: '250px' }}> Previous hash: </TableCell>
                     <TableCell> {block?.previousHash} </TableCell>
                   </TableRow>
-                  <TableRow hover>
-                    <TableCell style={{ width: '250px' }}> Number of Transactions:</TableCell>
-                    <TableCell>{block?.data?.length ? block?.data?.length : 0} </TableCell>
-                  </TableRow>
-                  <TableRow hover>
-                    <TableCell style={{ width: '250px' }}> Transactions:</TableCell>
-                    <TableCell>
-                      {(block?.data || []).map((i, n) =>
-                        <div key={n}>
-                          {n + 1}:  <Link to={`/transaction/${i.id}`}>{i.id}</Link>
-                        </div>
-                      )}
-                    </TableCell>
-                  </TableRow>
                 </>
               }
             </TableBody>

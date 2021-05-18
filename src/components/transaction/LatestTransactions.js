@@ -68,25 +68,25 @@ const WalletsTransactions = (props) => {
     setPage(newPage);
   };
 
-  const style1 = {
+  const linkCss = {
     whiteSpace: "nowrap",
     textOverflow: "ellipsis",
     maxWidth: "250px",
     overflow: "hidden"
   }
 
-  const style2 = {
+  const heahder = {
     whiteSpace: "nowrap",
     textOverflow: "ellipsis",
     maxWidth: "400px",
     overflow: "hidden"
   }
 
-  const style3 = {
+  const textCss = {
     whiteSpace: "nowrap",
     textOverflow: "ellipsis",
     width: "10%",
-    overflow: "hidden"
+    overflow: "hidden",
   }
 
   return (
@@ -124,10 +124,10 @@ const WalletsTransactions = (props) => {
                 <TableCell >
                   <Typography >Transaction Id</Typography>
                 </TableCell>
-                <TableCell style={style2}>
+                <TableCell style={heahder}>
                   Address
               </TableCell>
-                <TableCell align="right" style={style3}>
+                <TableCell align="right" style={textCss}>
                   Status
               </TableCell>
               </TableRow>
@@ -137,22 +137,22 @@ const WalletsTransactions = (props) => {
                 return (
                   <TableRow hover key={tx.id}>
                     <TableCell>
-                      <div style={style1}>
+                      <div style={linkCss}>
                         <Link to={`/transaction/${tx.id}`}>{tx.id}</Link>
                       </div>
                     </TableCell>
                     <TableCell >
-                      <div style={style2}>
+                      <div style={heahder}>
                         From:&nbsp;
                         {tx?.sender}</div>
-                      <div style={style2}>
+                      <div style={heahder}>
                         To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {tx?.receiver}
                       </div>
                     </TableCell>
-                    <TableCell align="right" style={style3}>
+                    <TableCell align="right" style={textCss}>
                       <Chip
-                        color="primary"
+                        color="success"
                         label={"success"}
                         size="small"
                       />

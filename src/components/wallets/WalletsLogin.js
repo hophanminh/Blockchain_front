@@ -101,8 +101,8 @@ const WalletsLogin = (props) => {
       <form>
         <Card>
           <CardHeader
-            title="Login"
-            subheader="Your info will only be kept at client's side and will be deleted when you close this tab "
+            title="BALANCE"
+            subheader="Get balance of your wallet"
           />
           <Divider />
           <CardContent>
@@ -127,13 +127,6 @@ const WalletsLogin = (props) => {
             }}
           >
             <Button
-              color="primary"
-              variant="contained"
-              onClick={() => handleGetPublicKey()}
-            >
-              Get Public Key
-          </Button>
-            <Button
               style={{ marginLeft: '10px' }}
               color="primary"
               variant="contained"
@@ -141,14 +134,14 @@ const WalletsLogin = (props) => {
             >
               Get Balance
           </Button>
-            <Button
+            {/* <Button
               style={{ marginLeft: '10px' }}
               color="primary"
               variant="contained"
               onClick={() => handleTransaction()}
             >
               Get Transaction
-          </Button>
+          </Button> */}
           </Box>
         </Card>
       </form>

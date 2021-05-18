@@ -16,6 +16,8 @@ import {
 } from 'react-feather';
 import NavItem from './NavItem';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import FilterBAndWIcon from '@material-ui/icons/FilterBAndW';
+import PaymentIcon from '@material-ui/icons/Payment';
 
 const items = [
   {
@@ -30,12 +32,12 @@ const items = [
   },
   {
     href: '/transactions',
-    icon: AccountBalanceWalletIcon,
+    icon: PaymentIcon,
     title: 'Transactions'
   },
   {
     href: '/blocks',
-    icon: AccountBalanceWalletIcon,
+    icon: FilterBAndWIcon,
     title: 'Blocks'
   },
 ];

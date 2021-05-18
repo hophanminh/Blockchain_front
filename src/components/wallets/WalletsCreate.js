@@ -37,7 +37,7 @@ const WalletsCreate = (props) => {
         <Card>
           <CardHeader
             title="Create wallet"
-            subheader="Enter password We will create it for you."
+            subheader="Press 'GENERATE KEY' to get your public key."
           />
           <Divider />
           <CardContent>

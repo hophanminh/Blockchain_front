@@ -16,9 +16,6 @@ import axios from 'axios';
 
 const WalletsMiner = (props) => {
   const { publicKey, setValues, handleOpen } = props
-  // const [values, setValues] = useState({
-  //   publicKey: ''
-  // });
   const [errors, setErrors] = useState({
     publicKey: ''
   })
@@ -71,7 +68,7 @@ const WalletsMiner = (props) => {
         <Card>
           <CardHeader
             title="Mine Coin"
-            subheader="Start mining at our server. NEED TO LOGIN TO USE"
+            subheader="Start mining at our server. Use your public key"
           />
           <Divider />
           <CardContent>

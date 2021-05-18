@@ -91,7 +91,7 @@ const WalletsTransfer = (props) => {
               // send transaction to server
               axios.post(`${LINK.API}/sendTransactionAnonymous`, { transaction: tx, sender : tx.sender, reeceiver: tx.receiver, amount: tx.txOuts[0].amount, privateKey: values.privateKey})
                 .then(function (res) {
-                  handleOpen("Created transaction successfully. Now wait for someone to mine it", "success");
+                  handleOpen("Created transaction successfully.", "success");
                 })
                 .catch(function (err) {
                   if (err?.response && err?.response?.data) {
@@ -120,7 +120,7 @@ const WalletsTransfer = (props) => {
         <Card>
           <CardHeader
             title="Create new transaction"
-            subheader="Send coin to another user through their public key. NEED TO LOGIN TO USE"
+            subheader="Send coin to another user through their public key"
           />
           <Divider />
           <CardContent>
